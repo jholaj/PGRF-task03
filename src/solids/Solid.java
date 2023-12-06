@@ -71,6 +71,22 @@ public abstract class Solid {
         return getModel().mul(mat);
     }
 
+    // rotating // radians
+    public Mat4 rotateX(){
+        Mat4RotX mat = new Mat4RotX(Math.toRadians(1));
+        return getModel().mul(mat);
+    }
+
+    public Mat4 rotateY(){
+        Mat4RotY mat = new Mat4RotY(Math.toRadians(1));
+        return getModel().mul(mat);
+    }
+
+    public Mat4 rotateZ(){
+        Mat4RotZ mat = new Mat4RotZ(Math.toRadians(1));
+        return getModel().mul(mat);
+    }
+
     public void setModel(Mat4 model) {
         this.model = model;
     }

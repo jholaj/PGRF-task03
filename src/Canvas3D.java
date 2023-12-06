@@ -141,7 +141,7 @@ public class Canvas3D {
                 }
 
                 // selecting solids
-                if(keyEvent.getKeyCode() == KeyEvent.VK_X){
+                if(keyEvent.getKeyCode() == KeyEvent.VK_ENTER){
                     if (selectedIndex != -1) {
                         scene.get(selectedIndex).setColor(outlineColor);
                     }
@@ -255,6 +255,15 @@ public class Canvas3D {
                 System.out.println("DOWN");
                 solid.setModel(solid.decreaseZ());
                 break;
+            case KeyEvent.VK_X:
+                System.out.println("ROTATE X");
+                solid.setModel(solid.rotateX());
+            case KeyEvent.VK_Y:
+                System.out.println("ROTATE Y");
+                solid.setModel(solid.rotateY());
+            case KeyEvent.VK_Z:
+                System.out.println("ROTATE Z");
+                solid.setModel(solid.rotateZ());
         }
         renderScene();
     }
