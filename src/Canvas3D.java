@@ -1,6 +1,5 @@
 import rasterize.*;
-import solids.Cube;
-import solids.Solid;
+import solids.*;
 import transforms.*;
 
 import javax.swing.*;
@@ -23,12 +22,21 @@ public class Canvas3D {
     // SCENE
     private ArrayList<Solid> scene;
     private Solid cube;
+    private Solid pentagonalPrism;
+    private Solid donut;
+    private Solid pyramid;
     private Camera camera;
     private Mat4 projection;
 
     // help vars & colors
     private int startClickX, startClickY = 0;
     int outlineColor = 0xf0f0f0;
+    int editColor = 0xff0000;
+    private double translX, translY = 0;
+    private int selectedIndex = -1;
+    private String objectId = "";
+
+
 
     public Canvas3D(int width, int height)
     {
@@ -132,6 +140,35 @@ public class Canvas3D {
                     renderScene();
                 }
 
+                // selecting solids
+                if(keyEvent.getKeyCode() == KeyEvent.VK_X){
+                    if (selectedIndex != -1) {
+                        scene.get(selectedIndex).setColor(outlineColor);
+                    }
+
+                    selectedIndex = (selectedIndex + 1) % scene.size();
+                    scene.get(selectedIndex).setColor(editColor);
+
+                    System.out.println("Edit: " + scene.get(selectedIndex).getIdentifier());
+
+                    renderScene();
+                }
+
+                // ROTATING / TRANSLATING SOLID
+                objectId = scene.get(selectedIndex).getIdentifier();
+                if(objectId == "CUBE"){
+                    System.out.println("Cube works!");
+                }
+                if(objectId == "DONUT"){
+                    System.out.println("Donut works!");
+                }
+                if(objectId == "PENTAGON"){
+                    System.out.println("Pentagon works!");
+                }
+                if(objectId == "PYRAMID"){
+                    System.out.println("Pyramid works!");
+                }
+
             }
 
             @Override
@@ -145,7 +182,7 @@ public class Canvas3D {
 
     public void initScene(){
         camera = new Camera(
-                new Vec3D(0.5,-1,0.3),
+                new Vec3D(0.5,-5,2.3),
                 Math.toRadians(90), //azimuth
                 Math.toRadians(-15), //zenith
                 10,
@@ -161,9 +198,17 @@ public class Canvas3D {
         );
 
         cube = new Cube();
+        pentagonalPrism = new PentagonalPrism();
+        donut = new Donut();
+        pyramid = new Pyramid();
         scene = new ArrayList<>();
         scene.add(cube);
-
+        scene.add(pentagonalPrism);
+        scene.add(donut);
+        scene.add(pyramid);
+        for (Solid obj : scene) {
+            obj.setColor(outlineColor);
+        }
     }
 
     public void renderScene(){

@@ -21,4 +21,9 @@ public class Cube extends Solid {
         addIndices(4, 5, 5, 6, 6, 7, 7, 4); // back face
         addIndices(0, 4, 1, 5, 2, 6, 3, 7); // four side faces
     }
+
+    @Override
+    public String getIdentifier() {
+        return "CUBE";
+    }
 }

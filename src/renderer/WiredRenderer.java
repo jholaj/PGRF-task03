@@ -54,7 +54,7 @@ public class WiredRenderer {
             Vec3D v2 = transformToWindows(new Vec3D(dehomogB));
 
 
-            lineRasterizer.rasterize((int) Math.round(v1.getX()), (int) Math.round(v1.getY()), (int) Math.round(v2.getX()), (int) Math.round(v2.getY()), 0xffffff);
+            lineRasterizer.rasterize((int) Math.round(v1.getX()), (int) Math.round(v1.getY()), (int) Math.round(v2.getX()), (int) Math.round(v2.getY()), solid.getColor());
         }
     }
 
