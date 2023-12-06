@@ -87,6 +87,17 @@ public abstract class Solid {
         return getModel().mul(mat);
     }
 
+    // zoom
+    public Mat4 zoomUp(){
+        Mat4Scale mat = new Mat4Scale(1.1);
+        return getModel().mul(mat);
+    }
+
+    public Mat4 zoomDown(){
+        Mat4Scale mat = new Mat4Scale(0.9);
+        return getModel().mul(mat);
+    }
+
     public void setModel(Mat4 model) {
         this.model = model;
     }

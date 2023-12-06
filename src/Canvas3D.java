@@ -109,23 +109,23 @@ public class Canvas3D {
             public void keyPressed(KeyEvent keyEvent) {
                 // wasd
                 if(keyEvent.getKeyCode() == KeyEvent.VK_W){
-                    System.out.println("W stisknuto... Posun VPRED");
+                    System.out.println("W pressed... Camera goes forward");
                     camera = camera.forward(0.1);
                     renderScene();
 
                 }
                 if(keyEvent.getKeyCode() == KeyEvent.VK_S){
-                    System.out.println("S stisknuto... Posun VZAD");
+                    System.out.println("S pressed... Camera goes backward");
                     camera = camera.backward(0.1);
                     renderScene();
                 }
                 if(keyEvent.getKeyCode() == KeyEvent.VK_A){
-                    System.out.println("A stisknuto... Posun VLEVO");
+                    System.out.println("A pressed... Camera goes left");
                     camera = camera.left(0.1);
                     renderScene();
                 }
                 if(keyEvent.getKeyCode() == KeyEvent.VK_D){
-                    System.out.println("D stisknuto... Posun VPRAVO");
+                    System.out.println("D pressed... Camera goes right");
                     camera = camera.right(0.1);
                     renderScene();
                 }
@@ -151,7 +151,7 @@ public class Canvas3D {
                     // ROTATING / TRANSLATING SOLID
                     objectId = scene.get(selectedIndex).getIdentifier();
 
-                    System.out.println("Edit: " + objectId);
+                    System.out.println("EDIT: " + objectId);
 
                     renderScene();
                 }
@@ -231,6 +231,7 @@ public class Canvas3D {
 
     public void processKeyEvent(Solid solid, KeyEvent keyEvent) {
         switch (keyEvent.getKeyCode()) {
+            // MOVEMENT
             case KeyEvent.VK_LEFT:
                 System.out.println("LEFT");
                 solid.setModel(solid.decreaseX());
@@ -255,15 +256,29 @@ public class Canvas3D {
                 System.out.println("DOWN");
                 solid.setModel(solid.decreaseZ());
                 break;
+            // ROTATING
             case KeyEvent.VK_X:
                 System.out.println("ROTATE X");
                 solid.setModel(solid.rotateX());
+                break;
             case KeyEvent.VK_Y:
                 System.out.println("ROTATE Y");
                 solid.setModel(solid.rotateY());
+                break;
             case KeyEvent.VK_Z:
                 System.out.println("ROTATE Z");
                 solid.setModel(solid.rotateZ());
+                break;
+            // ZOOM
+            //numeric
+            case KeyEvent.VK_ADD:
+                System.out.println("ZOOM UP");
+                solid.setModel(solid.zoomUp());
+                break;
+            case KeyEvent.VK_SUBTRACT:
+                System.out.println("ZOOM DOWN");
+                solid.setModel(solid.zoomDown());
+                break;
         }
         renderScene();
     }
