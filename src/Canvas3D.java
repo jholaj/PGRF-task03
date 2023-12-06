@@ -148,14 +148,14 @@ public class Canvas3D {
 
                     selectedIndex = (selectedIndex + 1) % scene.size();
                     scene.get(selectedIndex).setColor(editColor);
+                    // ROTATING / TRANSLATING SOLID
+                    objectId = scene.get(selectedIndex).getIdentifier();
 
-                    System.out.println("Edit: " + scene.get(selectedIndex).getIdentifier());
+                    System.out.println("Edit: " + objectId);
 
                     renderScene();
                 }
 
-                // ROTATING / TRANSLATING SOLID
-                objectId = scene.get(selectedIndex).getIdentifier();
                 if(objectId == "CUBE"){
                     System.out.println("Cube works!");
                 }

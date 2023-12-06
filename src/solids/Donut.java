@@ -8,7 +8,6 @@ public class Donut extends Solid {
 
         // source: https://en.wikipedia.org/wiki/Torus?useskin=vector
 
-
         int m = 20, n = 10;
         double R = 0.6, r = 0.25;
 
