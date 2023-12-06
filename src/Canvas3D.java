@@ -31,16 +31,12 @@ public class Canvas3D {
     private Mat4 orthogonalProjection;
     private Mat4 currentProjection;
 
-
-
     // help vars & colors
     private int startClickX, startClickY = 0;
     int outlineColor = 0xf0f0f0;
     int editColor = 0xff0000;
-    private double translX, translY = 0;
     private int selectedIndex = -1;
     private String objectId = "";
-
 
 
     public Canvas3D(int width, int height)
@@ -102,8 +98,7 @@ public class Canvas3D {
         frame.pack();
         frame.setVisible(true);
         frame.requestFocusInWindow();
-
-
+        
         frame.addKeyListener(new KeyListener() {
             @Override
             public void keyTyped(KeyEvent keyEvent) {
@@ -159,6 +154,16 @@ public class Canvas3D {
                     System.out.println("EDIT: " + objectId);
 
                     renderScene();
+                }
+
+                if(keyEvent.getKeyCode() == KeyEvent.VK_BACK_SPACE){
+                    if (selectedIndex != -1) {
+                        scene.get(selectedIndex).setColor(outlineColor);
+                        selectedIndex = -1;
+                        objectId = "";
+                        System.out.println("DESELECTED OBJECT");
+                        renderScene();
+                    }
                 }
 
                 if(objectId == "CUBE"){
@@ -217,6 +222,8 @@ public class Canvas3D {
                 20.
         );
 
+        // AXIS
+
         xAxis = new Axis('x');
         xAxis.setColor(0xFF0000); // RED
 
@@ -225,6 +232,8 @@ public class Canvas3D {
 
         zAxis = new Axis('z');
         zAxis.setColor(0x0000FF); // BLUE
+
+        // OBJECTS
 
         cube = new Cube();
         pentagonalPrism = new PentagonalPrism();
@@ -244,6 +253,14 @@ public class Canvas3D {
 
     public void renderScene(){
         clear(0x000000);
+        // tutorial
+        drawString(raster.getGraphics(), "CAMERA - WASD\nSELECTING OBJECT  - ENTER\nDESELECT OBJECT - BACKSPACE\nLEFT/RIGHT - LEFT/RIGHT\nFORWARD/BACKWARD - UP/DOWN\nUP/DOWN - SHIFT/CTRL\nROTATING X/Y/Z - X/Y/Z\nZOOM/UNZOOM - PLUS/MINUS (NUMERIC)\nSWITCH PROJECTIONS - P", 550, 440);
+        // help text
+        if(objectId != "") {
+            drawString(raster.getGraphics(), "SELECTED OBJECT: " + objectId, 0, 50);
+        }
+        drawString(raster.getGraphics(), "X: " + String.format("%.5g%n", camera.getPosition().getX()) + "Y: " + String.format("%.5g%n", camera.getPosition().getY()) + "Z: " + String.format("%.5g%n", camera.getPosition().getZ()), 0,0);
+
         wiredRenderer.setView(camera.getViewMatrix());
         wiredRenderer.setProj(currentProjection);
         wiredRenderer.renderAxis(xAxis,yAxis,zAxis);
@@ -260,6 +277,12 @@ public class Canvas3D {
         raster.clear();
         renderScene();
         panel.repaint();
+    }
+
+    public void drawString(Graphics g, String text, int x, int y) {
+        for (String line : text.split("\n")) {
+            g.drawString(line, x, y += g.getFontMetrics().getHeight());
+        }
     }
 
     public void processKeyEvent(Solid solid, KeyEvent keyEvent) {
