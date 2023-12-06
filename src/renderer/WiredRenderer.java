@@ -20,6 +20,7 @@ public class WiredRenderer {
         this.lineRasterizer = lineRasterizer;
         this.raster = raster;
         this.view = new Mat4Identity();
+        this.proj = new Mat4Identity();
     }
 
     public void render(Solid solid) {

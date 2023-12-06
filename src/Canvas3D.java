@@ -26,7 +26,11 @@ public class Canvas3D {
     private Solid donut;
     private Solid pyramid;
     private Camera camera;
-    private Mat4 projection;
+    private Mat4 perspectiveProjection;
+    private Mat4 orthogonalProjection;
+    private Mat4 currentProjection;
+
+
 
     // help vars & colors
     private int startClickX, startClickY = 0;
@@ -168,6 +172,17 @@ public class Canvas3D {
                 if(objectId == "PYRAMID"){
                     processKeyEvent(pyramid, keyEvent);
                 }
+
+                // projection switch
+                if(keyEvent.getKeyCode() == KeyEvent.VK_P){
+                    System.out.println("switched projection");
+                    if(currentProjection == perspectiveProjection){
+                        currentProjection = orthogonalProjection;
+                    } else {
+                        currentProjection = perspectiveProjection;
+                    }
+                }
+                renderScene();
             }
 
             @Override
@@ -188,10 +203,15 @@ public class Canvas3D {
                 true
         );
 
-        // switch for ortho?
-        projection = new Mat4PerspRH(
+        perspectiveProjection = new Mat4PerspRH(
                 Math.PI / 4,
                 raster.getHeight() / (float)raster.getWidth(), // FLOAT!
+                0.1,
+                20.
+        );
+        orthogonalProjection = new Mat4OrthoRH(
+                raster.getWidth() / 100,
+                raster.getHeight() / 100,
                 0.1,
                 20.
         );
@@ -200,6 +220,7 @@ public class Canvas3D {
         pentagonalPrism = new PentagonalPrism();
         donut = new Donut();
         pyramid = new Pyramid();
+        currentProjection = perspectiveProjection;
         scene = new ArrayList<>();
         scene.add(cube);
         scene.add(pentagonalPrism);
@@ -213,7 +234,7 @@ public class Canvas3D {
     public void renderScene(){
         clear(0x000000);
         wiredRenderer.setView(camera.getViewMatrix());
-        wiredRenderer.setProj(projection);
+        wiredRenderer.setProj(currentProjection);
         wiredRenderer.renderScene(scene);
         panel.repaint();
     }

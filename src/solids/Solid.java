@@ -102,6 +102,4 @@ public abstract class Solid {
         this.model = model;
     }
 
-
-
 }
