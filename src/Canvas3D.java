@@ -157,18 +157,17 @@ public class Canvas3D {
                 }
 
                 if(objectId == "CUBE"){
-                    System.out.println("Cube works!");
+                    processKeyEvent(cube, keyEvent);
                 }
                 if(objectId == "DONUT"){
-                    System.out.println("Donut works!");
+                    processKeyEvent(donut, keyEvent);
                 }
                 if(objectId == "PENTAGON"){
-                    System.out.println("Pentagon works!");
+                    processKeyEvent(pentagonalPrism, keyEvent);
                 }
                 if(objectId == "PYRAMID"){
-                    System.out.println("Pyramid works!");
+                    processKeyEvent(pyramid, keyEvent);
                 }
-
             }
 
             @Override
@@ -228,6 +227,36 @@ public class Canvas3D {
         raster.clear();
         renderScene();
         panel.repaint();
+    }
+
+    public void processKeyEvent(Solid solid, KeyEvent keyEvent) {
+        switch (keyEvent.getKeyCode()) {
+            case KeyEvent.VK_LEFT:
+                System.out.println("LEFT");
+                solid.setModel(solid.decreaseX());
+                break;
+            case KeyEvent.VK_RIGHT:
+                System.out.println("RIGHT");
+                solid.setModel(solid.increaseX());
+                break;
+            case KeyEvent.VK_UP:
+                System.out.println("FORWARD");
+                solid.setModel(solid.increaseY());
+                break;
+            case KeyEvent.VK_DOWN:
+                System.out.println("BACKWARD");
+                solid.setModel(solid.decreaseY());
+                break;
+            case KeyEvent.VK_SHIFT:
+                System.out.println("UP");
+                solid.setModel(solid.increaseZ());
+                break;
+            case KeyEvent.VK_CONTROL:
+                System.out.println("DOWN");
+                solid.setModel(solid.decreaseZ());
+                break;
+        }
+        renderScene();
     }
 
     public static void main(String[] args) {

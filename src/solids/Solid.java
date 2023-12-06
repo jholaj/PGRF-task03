@@ -1,8 +1,6 @@
 package solids;
 
-import transforms.Mat4;
-import transforms.Mat4Identity;
-import transforms.Point3D;
+import transforms.*;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -41,6 +39,42 @@ public abstract class Solid {
     protected void addIndices(Integer... indices) {
         ib.addAll(Arrays.asList(indices));
     }
+
+    // translating each axis... x y z
+    public Mat4 increaseX(){
+        Mat4Transl mat = new Mat4Transl(new Vec3D(1,0,0));
+        return getModel().mul(mat);
+    }
+
+    public Mat4 decreaseX(){
+        Mat4Transl mat = new Mat4Transl(new Vec3D(-1,0,0));
+        return getModel().mul(mat);
+    }
+
+    public Mat4 increaseY(){
+        Mat4Transl mat = new Mat4Transl(new Vec3D(0,1,0));
+        return getModel().mul(mat);
+    }
+
+    public Mat4 decreaseY(){
+        Mat4Transl mat = new Mat4Transl(new Vec3D(0,-1,0));
+        return getModel().mul(mat);
+    }
+
+    public Mat4 increaseZ(){
+        Mat4Transl mat = new Mat4Transl(new Vec3D(0,0,1));
+        return getModel().mul(mat);
+    }
+
+    public Mat4 decreaseZ(){
+        Mat4Transl mat = new Mat4Transl(new Vec3D(0,0,-1));
+        return getModel().mul(mat);
+    }
+
+    public void setModel(Mat4 model) {
+        this.model = model;
+    }
+
 
 
 }
