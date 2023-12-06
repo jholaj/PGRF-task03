@@ -1,6 +1,7 @@
 package renderer;
 
 import rasterize.LineRasterizer;
+import solids.Axis;
 import solids.Solid;
 import transforms.Mat4;
 import transforms.Mat4Identity;
@@ -77,6 +78,12 @@ public class WiredRenderer {
         for(Solid solid : scene){
             render(solid);
         }
+    }
+
+    public void renderAxis(Axis x, Axis y, Axis z){
+        render(x);
+        render(y);
+        render(z);
     }
 
     private boolean checkVertex(Point3D vertex) {

@@ -25,6 +25,7 @@ public class Canvas3D {
     private Solid pentagonalPrism;
     private Solid donut;
     private Solid pyramid;
+    private Axis xAxis,yAxis,zAxis;
     private Camera camera;
     private Mat4 perspectiveProjection;
     private Mat4 orthogonalProjection;
@@ -216,10 +217,20 @@ public class Canvas3D {
                 20.
         );
 
+        xAxis = new Axis('x');
+        xAxis.setColor(0xFF0000); // RED
+
+        yAxis = new Axis('y');
+        yAxis.setColor(0x00FF00); // GREEN
+
+        zAxis = new Axis('z');
+        zAxis.setColor(0x0000FF); // BLUE
+
         cube = new Cube();
         pentagonalPrism = new PentagonalPrism();
         donut = new Donut();
         pyramid = new Pyramid();
+
         currentProjection = perspectiveProjection;
         scene = new ArrayList<>();
         scene.add(cube);
@@ -235,6 +246,7 @@ public class Canvas3D {
         clear(0x000000);
         wiredRenderer.setView(camera.getViewMatrix());
         wiredRenderer.setProj(currentProjection);
+        wiredRenderer.renderAxis(xAxis,yAxis,zAxis);
         wiredRenderer.renderScene(scene);
         panel.repaint();
     }
