@@ -12,8 +12,8 @@ import rasterize.Raster;
 import java.util.ArrayList;
 
 public class WiredRenderer {
-    private LineRasterizer lineRasterizer;
-    private Raster raster;
+    private final LineRasterizer lineRasterizer;
+    private final Raster raster;
     private Mat4 view;
     private Mat4 proj;
 

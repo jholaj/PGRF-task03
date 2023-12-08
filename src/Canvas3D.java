@@ -78,9 +78,9 @@ public class Canvas3D {
             public void mouseDragged(MouseEvent e) {
                 // movement of mouse
                 // horizontal
-                camera = camera.addAzimuth((double) Math.PI * (e.getX() - startClickX) / (double) panel.getWidth());
+                camera = camera.addAzimuth(Math.PI * (e.getX() - startClickX) / (double) panel.getWidth());
                 // vertical
-                camera = camera.addZenith((double) Math.PI * (e.getY() - startClickY) / (double) panel.getHeight());
+                camera = camera.addZenith(Math.PI * (e.getY() - startClickY) / (double) panel.getHeight());
 
                 // preventing camera from rolling over
                 if(camera.getZenith() > 90)
@@ -166,16 +166,16 @@ public class Canvas3D {
                     }
                 }
 
-                if(objectId == "CUBE"){
+                if(objectId.equals("CUBE")){
                     processKeyEvent(cube, keyEvent);
                 }
-                if(objectId == "DONUT"){
+                if(objectId.equals("DONUT")){
                     processKeyEvent(donut, keyEvent);
                 }
-                if(objectId == "PENTAGON"){
+                if(objectId.equals("PENTAGON")){
                     processKeyEvent(pentagonalPrism, keyEvent);
                 }
-                if(objectId == "PYRAMID"){
+                if(objectId.equals("PYRAMID")){
                     processKeyEvent(pyramid, keyEvent);
                 }
 
@@ -216,8 +216,8 @@ public class Canvas3D {
                 20.
         );
         orthogonalProjection = new Mat4OrthoRH(
-                raster.getWidth() / 100,
-                raster.getHeight() / 100,
+                (float) raster.getWidth() / 100,
+                (float) raster.getHeight() / 100,
                 0.1,
                 20.
         );
@@ -256,7 +256,7 @@ public class Canvas3D {
         // tutorial
         drawString(raster.getGraphics(), "CAMERA - WASD\nSELECTING OBJECT  - ENTER\nDESELECT OBJECT - BACKSPACE\nLEFT/RIGHT - LEFT/RIGHT\nFORWARD/BACKWARD - UP/DOWN\nUP/DOWN - SHIFT/CTRL\nROTATING X/Y/Z - X/Y/Z\nZOOM/UNZOOM - PLUS/MINUS (NUMERIC)\nSWITCH PROJECTIONS - P", 550, 440);
         // help text
-        if(objectId != "") {
+        if(!objectId.isEmpty()) {
             drawString(raster.getGraphics(), "SELECTED OBJECT: " + objectId, 0, 50);
         }
         drawString(raster.getGraphics(), "X: " + String.format("%.5g%n", camera.getPosition().getX()) + "Y: " + String.format("%.5g%n", camera.getPosition().getY()) + "Z: " + String.format("%.5g%n", camera.getPosition().getZ()), 0,0);
