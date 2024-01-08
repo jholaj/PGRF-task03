@@ -8,3 +8,5 @@
 - [x] Přísné ořezávání jednotlivých hran zobrazovacím objemem tj. zahazování hran, které částečně leží mimo zobrazovací objem.
 - [x] Implementace interaktivní ovládání myší (rozhlížení) a klávesnicí (WSAD – dopředu, dozadu, vlevo, vpravo), především u definice kamery (třída Camera v transforms).
 - [x] Osy souřadnicového systému scény jako objekt scény (tři barevné úsečky).
+![alt text](https://i.imgur.com/FftgwY6.png)
+
